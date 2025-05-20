@@ -47,7 +47,7 @@ public class RegistrationPanel extends JPanel {
 
         // Campus combo with styling
         formPanel.add(createStyledLabel("Campus:"));
-        String[] campuses = {"Main Campus", "North Campus", "South Campus", "East Campus", "West Campus"};
+        String[] campuses = {"Main Campus", "CNCS", "Sefere Selam", "AAiT", "FBE"};
         campusCombo = new JComboBox<>(campuses);
         styleComboBox(campusCombo);
         formPanel.add(campusCombo);
@@ -56,7 +56,7 @@ public class RegistrationPanel extends JPanel {
 
         // Color combo with styling
         formPanel.add(createStyledLabel("Color:"));
-        String[] colors = {"Red", "Blue", "Green", "Yellow", "Black", "White"};
+        String[] colors = {"Silver", "Blue", "Green", "Yellow", "Black", "White"};
         colorCombo = new JComboBox<>(colors);
         styleComboBox(colorCombo);
         formPanel.add(colorCombo);

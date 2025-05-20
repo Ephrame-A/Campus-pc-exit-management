@@ -17,10 +17,6 @@ public class MainApp {
             System.exit(1);
         }
 
-        // Rest of your main method
-
-        // Load MySQL driver
-
 
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("Campus PC Management System");
