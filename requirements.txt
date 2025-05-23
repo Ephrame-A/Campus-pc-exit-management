@@ -1,0 +1,23 @@
+# Java Development Requirements
+Java Development Kit (JDK) 8 or higher
+Maven 3.8.1 or higher
+
+# Project Dependencies
+- ZXing Core 3.5.2 (QR Code generation and scanning)
+- ZXing JavaSE 3.5.2 (QR Code generation and scanning)
+- Webcam Capture 0.3.12 (Webcam integration)
+- MySQL Connector/J 9.3.0 (Database connectivity)
+
+# Build Tools
+- Maven Compiler Plugin 3.8.1
+- Maven Assembly Plugin 3.3.0
+
+# System Requirements
+- MySQL Server 8.0 or higher
+- Webcam compatible with Webcam Capture library
+- Minimum 4GB RAM
+- Windows 10 or higher
+
+# IDE Requirements (Optional)
+- IntelliJ IDEA (recommended)
+- Eclipse with Maven plugin 
