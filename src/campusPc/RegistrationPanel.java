@@ -1,11 +1,10 @@
 package campusPc;
 
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.WriterException;
-import com.google.zxing.client.j2se.MatrixToImageWriter;
-import com.google.zxing.common.BitMatrix;
-import com.google.zxing.qrcode.QRCodeWriter;
-
+import com.google.zxing.BarcodeFormat;       // Defines various barcode/QR formats
+import com.google.zxing.WriterException;      // For handling errors during writing barcodes
+import com.google.zxing.client.j2se.MatrixToImageWriter; // Converts QR data to an image
+import com.google.zxing.common.BitMatrix;     // Represents the black/white pattern of a QR code
+import com.google.zxing.qrcode.QRCodeWriter;   // The core class for generating QR codes
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

@@ -1,7 +1,5 @@
 
-
 import campusPc.*;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -31,7 +29,7 @@ public class MainApp {
             JButton registerBtn = new JButton("Student Registration");
             JButton scanBtn = new JButton("PC Exit Scanner");
 
-            campusPc.RegistrationPanel registrationPanel = new campusPc.RegistrationPanel(mainPanel);
+            RegistrationPanel registrationPanel = new campusPc.RegistrationPanel(mainPanel);
             ScannerPanel scannerPanel = new ScannerPanel(mainPanel);
 
             // Add action listeners
