@@ -1,19 +1,16 @@
 package campusPc;
 
-import com.google.zxing.BarcodeFormat;       // Defines various barcode/QR formats
-import com.google.zxing.WriterException;      // For handling errors during writing barcodes
-import com.google.zxing.client.j2se.MatrixToImageWriter; // Converts QR data to an image
-import com.google.zxing.common.BitMatrix;     // Represents the black/white pattern of a QR code
-import com.google.zxing.qrcode.QRCodeWriter;   // The core class for generating QR codes
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.WriterException;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.*;
 import java.sql.*;
 
 public class RegistrationPanel extends JPanel {
@@ -24,48 +21,43 @@ public class RegistrationPanel extends JPanel {
 
     public RegistrationPanel(JPanel parentPanel) {
         this.parentPanel = parentPanel;
-        setLayout(new BorderLayout(10, 10));
-        setBackground(new Color(240, 240, 240));
-        setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        setLayout(new BorderLayout(10, 10)); // Maintain BorderLayout for main panel
 
-        // Form panel with better styling
-        JPanel formPanel = new JPanel(new GridLayout(7, 2, 10, 10));
-        formPanel.setBackground(new Color(240, 240, 240));
 
-        // Styled form fields
-        addStyledField(formPanel, "Student ID:", idField = new JTextField());
-        addStyledField(formPanel, "First Name:", fNameField = new JTextField());
-        addStyledField(formPanel, "Last Name:", lNameField = new JTextField());
+        // Form panel with GridLayout
+        JPanel formPanel = new JPanel(new GridLayout(7, 2, 10, 10)); // Maintain GridLayout for form fields
 
-        // Department combo with styling
-        formPanel.add(createStyledLabel("Department:"));
+        // Add form fields using simplified helper method
+        addPlainField(formPanel, "Student ID:", idField = new JTextField());
+        addPlainField(formPanel, "First Name:", fNameField = new JTextField());
+        addPlainField(formPanel, "Last Name:", lNameField = new JTextField());
+
+        // Department combo
+        formPanel.add(new JLabel("Department:")); // Simplified JLabel creation
         String[] departments = {"Computer Science", "Electrical Engineering", "Mechanical Engineering", "Business", "Arts"};
         departmentCombo = new JComboBox<>(departments);
-        styleComboBox(departmentCombo);
+        // Removed: styleComboBox(departmentCombo); // Remove styling method call
         formPanel.add(departmentCombo);
 
-        // Campus combo with styling
-        formPanel.add(createStyledLabel("Campus:"));
+        // Campus combo
+        formPanel.add(new JLabel("Campus:")); // Simplified JLabel creation
         String[] campuses = {"Main Campus", "CNCS", "Sefere Selam", "AAiT", "FBE"};
         campusCombo = new JComboBox<>(campuses);
-        styleComboBox(campusCombo);
         formPanel.add(campusCombo);
 
-        addStyledField(formPanel, "PC Name:", pcNameField = new JTextField());
+        addPlainField(formPanel, "PC Name:", pcNameField = new JTextField());
 
-        // Color combo with styling
-        formPanel.add(createStyledLabel("Color:"));
+        // Color combo
+        formPanel.add(new JLabel("Color:")); // Simplified JLabel creation
         String[] colors = {"Silver", "Blue", "Green", "Yellow", "Black", "White"};
         colorCombo = new JComboBox<>(colors);
-        styleComboBox(colorCombo);
         formPanel.add(colorCombo);
 
-        // Button panel with better styling
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
-        buttonPanel.setBackground(new Color(240, 240, 240));
+        // Button panel with FlowLayout
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10)); // Maintain FlowLayout for buttons
 
-        registerBtn = createStyledButton("Register Student", new Color(0, 120, 215));
-        backBtn = createStyledButton("Back to Menu", new Color(100, 100, 100));
+        registerBtn = new JButton("Register Student");
+        backBtn = new JButton("Back to Menu");
 
         registerBtn.addActionListener(new RegisterListener());
         backBtn.addActionListener(e -> {
@@ -77,76 +69,27 @@ public class RegistrationPanel extends JPanel {
         buttonPanel.add(backBtn);
 
         // Layout with header
-        add(createHeaderPanel(), BorderLayout.NORTH);
+        add(createPlainHeaderPanel(), BorderLayout.NORTH); // Use simplified header creation
         add(formPanel, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);
 
-        // Add hover effects
-        addButtonHoverEffect(registerBtn, new Color(0, 100, 190));
-        addButtonHoverEffect(backBtn, new Color(80, 80, 80));
     }
 
-    private void addStyledField(JPanel panel, String label, JTextField field) {
-        panel.add(createStyledLabel(label));
-        field.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        field.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(new Color(200, 200, 200)),
-                BorderFactory.createEmptyBorder(5, 5, 5, 5)
-        ));
+    private void addPlainField(JPanel panel, String labelText, JTextField field) {
+        panel.add(new JLabel(labelText)); // Use plain JLabel
+
         panel.add(field);
     }
 
-    private JLabel createStyledLabel(String text) {
-        JLabel label = new JLabel(text);
-        label.setFont(new Font("Segoe UI", Font.BOLD, 14));
-        return label;
-    }
-
-    private JButton createStyledButton(String text, Color color) {
-        JButton button = new JButton(text);
-        button.setBackground(color);
-        button.setForeground(Color.WHITE);
-        button.setFocusPainted(false);
-        button.setFont(new Font("Segoe UI", Font.BOLD, 12));
-        button.setBorder(BorderFactory.createEmptyBorder(5, 15, 5, 15));
-        return button;
-    }
-
-    private void styleComboBox(JComboBox<String> combo) {
-        combo.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        combo.setBackground(Color.WHITE);
-        combo.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(new Color(200, 200, 200)),
-                BorderFactory.createEmptyBorder(5, 5, 5, 5)
-        ));
-    }
-
-    private JPanel createHeaderPanel() {
+    private JPanel createPlainHeaderPanel() {
         JPanel header = new JPanel();
-        header.setBackground(new Color(0, 120, 215));
-        header.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         JLabel title = new JLabel("STUDENT REGISTRATION");
-        title.setForeground(Color.WHITE);
-        title.setFont(new Font("Segoe UI", Font.BOLD, 18));
 
         header.add(title);
         return header;
     }
 
-    private void addButtonHoverEffect(JButton button, Color hoverColor) {
-        Color originalColor = button.getBackground();
-
-        button.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                button.setBackground(hoverColor);
-            }
-
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                button.setBackground(originalColor);
-            }
-        });
-    }
 
     private class RegisterListener implements ActionListener {
         @Override
@@ -250,13 +193,14 @@ public class RegistrationPanel extends JPanel {
 
         private void showSuccess(String filePath) {
             JOptionPane.showMessageDialog(RegistrationPanel.this,
-                    "<html><b>Registration successful!</b><br>QR code saved as:<br>" + filePath + "</html>",
+                    "Registration successful!\nQR code saved as:\n" + filePath,
                     "Success", JOptionPane.INFORMATION_MESSAGE);
         }
 
+        // Simplified showError without HTML
         private void showError(String message) {
             JOptionPane.showMessageDialog(RegistrationPanel.this,
-                    "<html><b>Error:</b><br>" + message + "</html>",
+                    "Error:\n" + message,
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
 
@@ -269,5 +213,6 @@ public class RegistrationPanel extends JPanel {
             campusCombo.setSelectedIndex(0);
             colorCombo.setSelectedIndex(0);
             idField.requestFocus();
-        }}}
-
+        }
+    }
+}

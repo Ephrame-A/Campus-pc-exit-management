@@ -14,7 +14,13 @@ A Java application for tracking student devices leaving campus using QR code sca
 - 🖨️ QR code generation for each device
 - 🔍 Real-time validation system
 - 📊 MySQL database integration
-
+## Technologies Used
+- **Frontend:** Java Swing
+- **Backend:** Java (JDBC for database connectivity)
+- **Build Tool:** Apache Maven
+- **Database:** MySQL
+- **QR Code Generation & Scanning:** ZXing Library (com.google.zxing)
+- **Webcam Integration:** Webcam Capture Library (com.github.sarxos.webcam-capture)
 ## Prerequisites
 
 - Java JDK 17+
