@@ -9,13 +9,10 @@ import com.google.zxing.common.HybridBinarizer;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 import java.awt.image.BufferedImage;
 import java.sql.*;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 public class ScannerPanel extends JPanel {
     private Webcam webcam; // Represents the physical webcam device.
@@ -31,7 +28,7 @@ public class ScannerPanel extends JPanel {
 
     public ScannerPanel(JPanel parentPanel) {
         this.parentPanel = parentPanel;
-        setLayout(new BorderLayout(10, 10)); // Set main layout manager for the panel.
+        setLayout(new BorderLayout(10, 20)); // Set main layout manager for the panel.
         setBackground(new Color(240, 240, 240)); // Set background color.
 
         // Initialize webcam device and its display panel.
@@ -294,7 +291,7 @@ public class ScannerPanel extends JPanel {
      */
     private boolean verifyStudentInDatabase(String studentId) throws SQLException {
         try (Connection conn = DBConnection.getConnection()) { // Get database connection.
-            String sql = "SELECT * FROM students WHERE id = ?"; // SQL query to check student existence.
+            String sql = "SELECT * FROM students_data WHERE id = ?"; // SQL query to check student existence.
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
                 stmt.setString(1, studentId); // Set student ID parameter.
                 try (ResultSet rs = stmt.executeQuery()) { // Execute query.

@@ -142,7 +142,7 @@ public class RegistrationPanel extends JPanel {
         private void registerStudent(Connection conn, String id, String fName, String lName,
                                      String department, String campus, String pcName, String color)
                 throws SQLException {
-            String insertSql = "INSERT INTO students (id, f_name, l_name, department, campus, pcname, color) " +
+            String insertSql = "INSERT INTO students_data (id, f_name, l_name, department, campus, pcname, color) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?)";
             try (PreparedStatement insertStmt = conn.prepareStatement(insertSql)) {
                 insertStmt.setString(1, id);
