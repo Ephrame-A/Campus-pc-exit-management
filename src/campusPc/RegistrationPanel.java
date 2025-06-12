@@ -130,7 +130,7 @@ public class RegistrationPanel extends JPanel {
         }
 
         private boolean studentExists(Connection conn, String id) throws SQLException {
-            String checkSql = "SELECT id FROM students WHERE id = ?";
+            String checkSql = "SELECT id FROM students_data WHERE id = ?";
             try (PreparedStatement checkStmt = conn.prepareStatement(checkSql)) {
                 checkStmt.setString(1, id);
                 try (ResultSet rs = checkStmt.executeQuery()) {

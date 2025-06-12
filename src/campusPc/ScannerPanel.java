@@ -307,11 +307,12 @@ public class ScannerPanel extends JPanel {
     private String formatStudentInfo(String qrData) {
         String[] lines = qrData.split("\n"); // Split data into lines.
         // Format and return a concise student info string.
-        return String.format("%s %s (ID: %s, PC: %s)",
+        return String.format("%s %s (ID: %s, PC: %s, PC Color: %s)",
                 lines[1].replace("First Name: ", "").trim(),
                 lines[2].replace("Last Name: ", "").trim(),
                 lines[0].replace("ID: ", "").trim(),
-                lines[5].replace("PC: ", "").trim()
+                lines[5].replace("PC: ", "").trim(),
+                lines[6].replace("Color: ", "").trim()
         );
     }
 }

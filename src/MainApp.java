@@ -7,17 +7,9 @@ import campusPc.*;
 public class MainApp {
 
     public static void main(String[] args) {
-        // Load JDBC driver explicitly
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            JOptionPane.showMessageDialog(null,
-                    "MySQL JDBC Driver not found! Add the JAR to your lib folder.",
-                    "Error", JOptionPane.ERROR_MESSAGE);
-            System.exit(1);
-        }
-        DBConnection.initializeDatabase();
         SwingUtilities.invokeLater(() -> {
+            DBConnection.initializeDatabase();
+
             JFrame frame = new JFrame("Campus PC Management System");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setSize(800, 600);
@@ -80,8 +72,8 @@ public class MainApp {
             frame.add(mainPanel);
             frame.setVisible(true);
         });
-    }
 
+    }
     /**
      * Applies consistent styling to the menu buttons.
      * This method is kept to easily customize button size, font, and colors.
